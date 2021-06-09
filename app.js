@@ -30,13 +30,37 @@ const randomFun = {
 	symble: randomSymbol,
 };
 
-const generatePass = (upper, lower, symbol, number, length) => {};
+const generatePass = (upper, lower, symbol, number, length) => {
+	let generatedPassword = '';
+	const typeCount = upper + lower + symbol + number;
+	const typeArray = [{ upper }, { lower }, { symbol }, { number }].filter(
+		(item) => {
+			return Object.values(item)[0];
+		}
+	);
+	if (typeCount === 0) {
+		return '';
+	}
+	for (let i = 0; i < length; i += typeCount) {
+		typeArray.forEach((item) => {
+			const funcName = Object.keys(item)[0];
+			generatedPassword += randomFun[funcName]();
+			console.log(generatedPassword);
+		});
+	}
+};
 
 generateEl.addEventListener('click', () => {
 	const length = +lengthEl.value;
-	const upper = upperEl.checked;
-	const lower = lowerEl.checked;
-	const symbol = symbolEl.checked;
-	const number = numberEl.checked;
-	generatePass(upper, lower, symbol, number, length);
+	const hasUpper = upperEl.checked;
+	const hasLower = lowerEl.checked;
+	const hasSymbol = symbolEl.checked;
+	const hasNumber = numberEl.checked;
+	resultEl.innerHTML = generatePass(
+		hasUpper,
+		hasLower,
+		hasSymbol,
+		hasNumber,
+		length
+	);
 });
