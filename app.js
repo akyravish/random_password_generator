@@ -2,8 +2,8 @@ const resultEl = document.getElementById('result');
 const lengthEl = document.getElementById('length');
 const upperEl = document.getElementById('uppercase');
 const lowerEl = document.getElementById('lowercase');
-const symbolEl = document.getElementById('symbols');
 const numberEl = document.getElementById('numbers');
+const symbleEl = document.getElementById('symbols');
 const generateEl = document.getElementById('generate');
 
 const randomLowerCase = () => {
@@ -30,37 +30,41 @@ const randomFun = {
 	symble: randomSymbol,
 };
 
-const generatePass = (upper, lower, symbol, number, length) => {
+const generatePassword = (upper, lower, number, symble, length) => {
 	let generatedPassword = '';
-	const typeCount = upper + lower + symbol + number;
-	const typeArray = [{ upper }, { lower }, { symbol }, { number }].filter(
+	const typeCount = upper + lower + number + symble;
+	const typeArray = [{ upper }, { lower }, { number }, { symble }].filter(
 		(item) => {
 			return Object.values(item)[0];
 		}
 	);
+
 	if (typeCount === 0) {
 		return '';
 	}
+
 	for (let i = 0; i < length; i += typeCount) {
 		typeArray.forEach((item) => {
 			const funcName = Object.keys(item)[0];
 			generatedPassword += randomFun[funcName]();
-			console.log(generatedPassword);
 		});
 	}
+
+	const finalPassword = generatedPassword.slice(0, length);
+	return finalPassword;
 };
 
 generateEl.addEventListener('click', () => {
 	const length = +lengthEl.value;
 	const hasUpper = upperEl.checked;
 	const hasLower = lowerEl.checked;
-	const hasSymbol = symbolEl.checked;
 	const hasNumber = numberEl.checked;
-	resultEl.innerHTML = generatePass(
+	const hasSymble = symbleEl.checked;
+	resultEl.innerHTML = generatePassword(
 		hasUpper,
 		hasLower,
-		hasSymbol,
 		hasNumber,
+		hasSymble,
 		length
 	);
 });
