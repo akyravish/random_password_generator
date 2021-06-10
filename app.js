@@ -1,70 +1,54 @@
 const resultEl = document.getElementById('result');
+const cliboardEl = document.getElementById('clipboard');
 const lengthEl = document.getElementById('length');
-const upperEl = document.getElementById('uppercase');
-const lowerEl = document.getElementById('lowercase');
+const upperCaseEl = document.getElementById('uppercase');
+const lowerCaseEl = document.getElementById('lowercase');
 const numberEl = document.getElementById('numbers');
-const symbleEl = document.getElementById('symbols');
+const symbolEl = document.getElementById('symbols');
 const generateEl = document.getElementById('generate');
 
-const randomLowerCase = () => {
-	return String.fromCharCode(Math.floor(Math.random() * 26 + 97));
+const randomUppercase = () => {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
 };
 
-const randomUpperCase = () => {
-	return String.fromCharCode(Math.floor(Math.random() * 26 + 65));
+const randomLowercase = () => {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 };
 
 const randomNumber = () => {
-	return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
+	return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
 };
 
 const randomSymbol = () => {
-	const symbols = '~!@#$%^&*()_+-={}|:"<>?[];,./"';
-	return symbols[Math.floor(Math.random() * symbols.length)];
+	const symble = '~!@#$%^&*()_+-=`}{|][:;"<>?,./';
+	return symble[Math.floor(Math.random() * symble.length)];
 };
 
 const randomFun = {
-	lower: randomLowerCase,
-	upper: randomUpperCase,
+	upper: randomUppercase,
+	lower: randomLowercase,
 	number: randomNumber,
-	symble: randomSymbol,
+	symbol: randomSymbol,
 };
 
-const generatePassword = (upper, lower, number, symble, length) => {
+const generatePassword = (upper, lower, number, symbol, length) => {
 	let generatedPassword = '';
-	const typeCount = upper + lower + number + symble;
-	const typeArray = [{ upper }, { lower }, { number }, { symble }].filter(
-		(item) => {
-			return Object.values(item)[0];
-		}
-	);
-
-	if (typeCount === 0) {
-		return '';
-	}
-
-	for (let i = 0; i < length; i += typeCount) {
-		typeArray.forEach((item) => {
-			const funcName = Object.keys(item)[0];
-			generatedPassword += randomFun[funcName]();
-		});
-	}
-
-	const finalPassword = generatedPassword.slice(0, length);
-	return finalPassword;
+	const typeCount = upper + lower + number + symbol;
+    const
+	console.log(typeCount);
 };
 
 generateEl.addEventListener('click', () => {
 	const length = +lengthEl.value;
-	const hasUpper = upperEl.checked;
-	const hasLower = lowerEl.checked;
+	const hasUpper = upperCaseEl.checked;
+	const hasLower = lowerCaseEl.checked;
 	const hasNumber = numberEl.checked;
-	const hasSymble = symbleEl.checked;
-	resultEl.innerHTML = generatePassword(
+	const hasSymbol = symbolEl.checked;
+	resultEl.innerText = generatePassword(
 		hasUpper,
 		hasLower,
 		hasNumber,
-		hasSymble,
+		hasSymbol,
 		length
 	);
 });
