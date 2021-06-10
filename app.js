@@ -34,8 +34,23 @@ const randomFun = {
 const generatePassword = (upper, lower, number, symbol, length) => {
 	let generatedPassword = '';
 	const typeCount = upper + lower + number + symbol;
-    const
-	console.log(typeCount);
+	const typeArray = [{ upper }, { lower }, { number }, { symbol }].filter(
+		(item) => Object.values(item)[0]
+	);
+
+	if (typeCount === 0) {
+		return '';
+	}
+
+	for (let i = 0; i < length; i += typeCount) {
+		typeArray.forEach((item) => {
+			const funcName = Object.keys(item)[0];
+			generatedPassword += randomFun[funcName]();
+		});
+	}
+
+	const finalPassword = generatedPassword.slice(0, length);
+	return finalPassword;
 };
 
 generateEl.addEventListener('click', () => {
