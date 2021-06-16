@@ -25,7 +25,7 @@ h2 {
 }
 
 .container {
-	background-color: #fc5185;
+	background-color: #1687a7;
 	padding: 20px;
 	width: 350px;
 	max-width: 100%;
@@ -33,7 +33,7 @@ h2 {
 }
 
 .result-container {
-	background-color: #c44168;
+	background-color: #0f5b70;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
